@@ -2,17 +2,17 @@
 
 using namespace Window;
 
-uchar ruleNum = 0;
-bool mode = true;
-
 int main() {
-	Window::WinStart(L"Rule Renderer");
+	WinStart(L"Rule Renderer");
 	return 0;
 }
 
+uchar ruleNum = 0;
+bool mode = true;
+
 bool getPixelEdgeCase(int x, int y) {
 	if (x < 0) return ctx::getPixel(x + 1, y) == 0xffffff;
-	if (x >= Window::window.width) return ctx::getPixel(x - 1, y) == 0xffffff;
+	if (x >= window.width) return ctx::getPixel(x - 1, y) == 0xffffff;
 	return ctx::getPixel(x, y) == 0xffffff;
 }
 
