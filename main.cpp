@@ -6,13 +6,9 @@ uchar ruleNum = 0;
 bool mode = true;
 
 int main() {
-	int a = -1000;
-	for (int i = 1; i < 3; i++) {
-		a /= i;
-	}
+	Window::WinStart(L"Rule Renderer");
 	return 0;
 }
-	//Window::WinStart(L"Rule Renderer", false);
 
 bool getPixelEdgeCase(int x, int y) {
 	if (x < 0) return ctx::getPixel(x + 1, y) == 0xffffff;
