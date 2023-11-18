@@ -30,7 +30,7 @@ int main() {
       if (rule < 0) break;
 
       for (int i = 0; i < 8; i++) {
-         ruleBits[i] = rule & 1;
+         ruleBits[i] = rule % 2;
          rule /= 2;
       }
 
