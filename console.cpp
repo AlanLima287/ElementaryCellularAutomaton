@@ -1,51 +1,56 @@
 #include <iostream>
 
-typedef unsigned char uchar;
-using namespace std;
-
 #define ALIVE_CELL (char)0xdb
 #define DEAD_CELL (char)0x20
 
-inline int mod(int num, int mod) {
+int mod(int num, int mod) {
    int result = num % mod;
-   return (result < 0) ? result + mod : result;
+   return num < 0 ? result + mod : result;
 }
 
-int main(int argc, char* args[]) {
+int main() {
 
-   int rule = 30;
-   const int width = 86;
-   const int heigth = width >> 1;
-   bool generations[2][width] = {};
+   const int width = 64;
+   const int height = (width - 1) / 2;
+   bool gens[2][width];
+
+   bool ruleBits[8] = {};
+   int rule;
 
    while (true) {
 
       for (int i = 0; i < width; i++) {
-         generations[0][i] = false;
-         generations[1][i] = false;
+         gens[0][i] = false;
+         gens[1][i] = false;
       }
 
-      generations[0][width >> 1] = true;
+      gens[0][height] = true;
 
-      cout << ">Insert the rule (0 to 255): "; cin >> rule;
+      std::cout << ">Insert the rule (0 to 255): "; std::cin >> rule;
+      if (rule < 0) break;
+
+      for (int i = 0; i < 8; i++) {
+         ruleBits[i] = rule & 1;
+         rule >>= 1;
+      }
 
       system("cls");
+      char index = 0;
 
-      short index = 0;
-      for (int y = 0; y < heigth; y++) {
-         for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
 
-            short top = 0;
-            
-            if (generations[index][mod(x - 1, width)]) top += 4;
-            if (generations[index][mod(x + 1, width)]) top += 1;
-            if (generations[index][x]) top += 2;
+         for (int x = 1; x < width - 1; x++) {
 
-            generations[index ^ 1][x] = (rule & (1 << top)) > 0;
-            cout << (generations[index][x] ? ALIVE_CELL : DEAD_CELL);
+            char topLayer = 0;
+            if (gens[index][mod(x - 1, width)]) topLayer += 4;
+            if (gens[index][mod(x + 1, width)]) topLayer += 1;
+            if (gens[index][x]) topLayer += 2;
+
+            gens[index ^ 1][x] = ruleBits[topLayer];
+            std::cout << (ruleBits[topLayer] ? ALIVE_CELL : DEAD_CELL);
          }
 
-         cout << '\n';
+         std::cout << '\n';
          index ^= 1;
       }
    }
