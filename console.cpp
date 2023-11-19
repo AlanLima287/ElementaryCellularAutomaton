@@ -21,7 +21,6 @@ int main() {
 
       for (int i = 0; i < width; i++) {
          gens[0][i] = false;
-         gens[1][i] = false;
       }
 
       gens[0][height] = true;
@@ -39,7 +38,7 @@ int main() {
 
       for (int y = 0; y < height; y++) {
 
-         for (int x = 1; x < width - 1; x++) {
+         for (int x = 0; x < width; x++) {
 
             char topLayer = 0;
             if (gens[index][mod(x - 1, width)]) topLayer += 4;
