@@ -28,7 +28,7 @@ void cellularAutomaton(uchar rule) {
 
 			uchar top = 0;
 			if (getPixelEdgeCase(x - 1, y)) top |= 0b100;
-			if (getPixelEdgeCase(x, y))		top |= 0b010;
+			if (getPixelEdgeCase(x, y))	top |= 0b010;
 			if (getPixelEdgeCase(x + 1, y)) top |= 0b001;
 
 			if ((rule & (1 << top)) > 0) ctx::fillPixel_s(x, y - 1, 0xffffff);
